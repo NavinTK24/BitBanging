@@ -1,3 +1,4 @@
+//Bluetooth library code for enabling UART communicatoin between HC-05 and Serial Monitor bidirectionally
 #include <string.h>
 
 const int TXpin = 11;
