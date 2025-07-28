@@ -13,53 +13,49 @@ void setup() {
 void i2cStart() {
     pinMode(SCLpin, OUTPUT);
     pinMode(SDApin, OUTPUT);
+    digitalWrite(SCLpin, HIGH);
+    digitalWrite(SDApin, HIGH);
     delayMicroseconds(5);
     digitalWrite(SDApin, LOW);
     delayMicroseconds(5);
     digitalWrite(SCLpin, LOW);
+    delayMicroseconds(5);
 }
 
 void i2cEnd() {
-    digitalWrite(SDApin, LOW);
+    pinMode(SCLpin, OUTPUT);
+    pinMode(SDApin, OUTPUT);
     digitalWrite(SCLpin, HIGH);
     delayMicroseconds(5);
     digitalWrite(SDApin, HIGH);
     delayMicroseconds(5);
-
-    pinMode(SCLpin, INPUT_PULLUP);
-    pinMode(SDApin, INPUT_PULLUP);
 }
 
 uint8_t i2cWriteData(uint8_t data) {
     pinMode(SCLpin, OUTPUT);
     pinMode(SDApin, OUTPUT);
-    digitalWrite(SDApin, HIGH);
-    digitalWrite(SCLpin, HIGH);
 
     for(int i=0; i<8; i++) {
-        digitalWrite(SCLpin, LOW);
-        digitalWrite(SDApin, (data & (1<<(7-i)))? HIGH : LOW);
-        delayMicroseconds(5);
         digitalWrite(SCLpin, HIGH);
         delayMicroseconds(5);
+        digitalWrite(SDApin, (data & (1<<(7-i)))? HIGH : LOW);
+        delayMicroseconds(5);
+        digitalWrite(SCLpin, LOW);
+        delayMicroseconds(5);
     }
-    digitalWrite(SCLpin, LOW);
     pinMode(SDApin, INPUT);
-    delayMicroseconds(5);
     digitalWrite(SCLpin, HIGH);
     delayMicroseconds(5);
-    uint8_t ack = digitalRead(SDApin);
-    pinMode(SDApin, OUTPUT);
+    digitalRead(SDApin);
 
-    return ack;
-
+    delayMicroseconds(5);
 }
 
 char i2cReadData() {
     pinMode(SDApin, INPUT_PULLUP);
     pinMode(SCLpin, OUTPUT);
     char c = 0;
-
+    
     for(int i=0; i<8; i++) {
         digitalWrite(SCLpin, HIGH);
         delayMicroseconds(5);
@@ -85,7 +81,6 @@ void charConversion(const char* msg) {
     while(*msg) {
         i2cWriteData(*msg);
         msg++;
-        delay(5);
     }
 }
 
@@ -93,26 +88,21 @@ void charConversion(const char* msg) {
 void loop() {
     delay(10);
 
-    i2cStart();
-    if(i2cWriteData((ADDRESS1 << 1) | 0) == 0) { //checks if ready for writing
-        if(Serial.available()) {
-            String sendData = Serial.readStringUntil('\n');
-            charConversion(sendData.c_str());
-        }  
+    if(Serial.available()) {
+        String sendData = Serial.readStringUntil('\n');
+        i2cStart();
+        i2cWriteData((ADDRESS1 << 1) | 0); 
+        charConversion(sendData.c_str());
+        i2cEnd();
+        delay(10);
+
     } else {
-        Serial.println("Device not responding");
-    }
-    i2cEnd();
-
-    delay(10);
-
-    i2cStart();
-    if(i2cWriteData( (ADDRESS1 <<1 ) | 1) == 0) { //checks if ready for reading
+        i2cStart();
+        i2cWriteData( (ADDRESS1 <<1 ) | 1); 
         char receivedData = i2cReadData();
         Serial.print(receivedData);
-    } else {
-        Serial.println("Device not responding");
-    } 
-    
-    i2cEnd();
+        i2cEnd();
+    }
+
+    delay(2000);
 }
