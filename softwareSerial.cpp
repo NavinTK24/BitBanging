@@ -38,7 +38,7 @@ void sendToBluetooth (const char* msg) {
         msg++;
     } 
     
-    sendByByte('\r');
+    sendByByte('\r'); //cariage return
     sendByByte('\n');
 }
 
