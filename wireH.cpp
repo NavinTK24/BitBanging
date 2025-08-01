@@ -2,7 +2,7 @@
 #include <string.h>
 #define SDApin 9
 #define SCLpin 11
-String ADDRESS1 = "10000001"; //0x40 for reading
+String ADDRESS1 = "10000001"; // INA219 address(0x40) for reading
 
 void setup() {
     Serial.begin(9600);
@@ -31,6 +31,32 @@ void i2cEnd() {
     delayMicroseconds(5);
 }
 
+bool ReadACK() {
+    pinMode(SDApin, INPUT);
+    digitalRead(SDApin);
+    delayMicroseconds(5);
+    digitalWrite(SCLpin, HIGH);
+    bool ack = !digitalRead(SDApin);
+    delayMicroseconds(5);
+    digitalWrite(SCLpin, LOW);
+    delayMicroseconds(5);
+
+    return ack;
+}
+
+bool WriteACK() {
+    pinMode(SDApin, OUTPUT);
+    digitalWrite(SDApin, LOW);
+    delayMicroseconds(5);
+    digitalWrite(SCLpin, HIGH);
+    bool ack = !digitalRead(SDApin);
+    delayMicroseconds(5);
+    digitalWrite(SCLpin, LOW);
+    delayMicroseconds(5);
+
+    return ack;
+}
+
 int twoPower(int n) {
     int result = 1;
     for(int i=0; i<n; i++) {
@@ -40,7 +66,7 @@ int twoPower(int n) {
     return result;
 }
 
-int i2cWriteData(char data) {
+void i2cWriteData(char data) {
     pinMode(SCLpin, OUTPUT);
     pinMode(SDApin, OUTPUT);
 
@@ -63,7 +89,6 @@ int i2cWriteData(char data) {
 }
 
 int i2cReadData() {
-    char c = 0;
     int dec = 0;
     pinMode(SDApin, INPUT_PULLUP);
     delayMicroseconds(5);
@@ -71,9 +96,7 @@ int i2cReadData() {
     
     for(int i=0; i<8; i++) {
         digitalRead(SDApin);
-        c<<=1;
         if(digitalRead(SDApin)) {
-            c |= 1;
             dec += twoPower(7-i);
         } 
         delayMicroseconds(5);
@@ -83,16 +106,10 @@ int i2cReadData() {
         digitalWrite(SCLpin, LOW);
         delayMicroseconds(5);
     }
-    // pinMode(SDApin, INPUT_PULLUP);
-    // delayMicroseconds(2);
-    pinMode(SDApin, OUTPUT);
-    digitalWrite(SDApin, LOW);
-    delayMicroseconds(5);
-    digitalWrite(SCLpin, HIGH);
-    delayMicroseconds(5);
-    digitalWrite(SCLpin, LOW);
-
-    return dec+48;
+    if(!ReadACK()) {
+        Serial.println("\n\tNACK");
+    }
+    return dec;
 }
 
 void charConversion(const char* msg) {
@@ -102,32 +119,30 @@ void charConversion(const char* msg) {
     }
 }
 
-void SlaveAdressWrite (String ADDRESS1) { 
+void SlaveAdressWrite (String ADDRESS) { 
     pinMode(SCLpin, OUTPUT);
-    digitalWrite(SCLpin, LOW);
     pinMode(SDApin, OUTPUT);
-    for(int i=0; i<ADDRESS1.length(); i++) {
-        char v = ADDRESS1[i];
+    for(int i=0; i<8; i++) {
+        char v = ADDRESS[i];
         digitalWrite(SDApin, ((v=='1')? HIGH : LOW));
         delayMicroseconds(5);
         digitalWrite(SCLpin, HIGH);
         delayMicroseconds(5);
         digitalWrite(SCLpin, LOW);
         delayMicroseconds(5);
-        digitalWrite(SDApin, LOW);
-        delayMicroseconds(5);
+        // digitalWrite(SDApin, LOW);
+        // delayMicroseconds(5);
     }
-    pinMode(SDApin, INPUT);
-    digitalRead(SDApin);
-    delayMicroseconds(5);
-    digitalWrite(SCLpin, HIGH);
-    delayMicroseconds(5);
-    digitalWrite(SCLpin, LOW);
+    
+    if(!WriteACK()) {
+        Serial.println("\n\tNACK");
+    }
 }
-
 
 void loop() {
     delay(10);
+    float result = 0;
+    Serial.print("\r");
 
     if(Serial.available()) {
         String sendData = Serial.readStringUntil('\n');
@@ -139,11 +154,25 @@ void loop() {
 
     } else {
         i2cStart();
-        SlaveAdressWrite("10000001");
-        char receivedData = i2cReadData();
-        Serial.print(receivedData);
-        i2cEnd();
-    }
+        Serial.println("Start over");
+        SlaveAdressWrite("10000000"); //address with write 0x80
+        ReadACK();
+        SlaveAdressWrite("00000100"); //for current reading 0x04
+        ReadACK();
+        Serial.println("Configuration over");
 
+        i2cStart();
+        SlaveAdressWrite("10000001"); //address with read 0x81
+        ReadACK();
+        result += i2cReadData(); //MSB with ACK
+        WriteACK();
+        Serial.println("Reading over");
+        result += i2cReadData(); //LSB with NACK
+        i2cEnd();
+
+        // MASTER raw to real value conversion
+        Serial.print(result/10);
+        Serial.print(" mA");
+    }
     delay(2000);
 }
