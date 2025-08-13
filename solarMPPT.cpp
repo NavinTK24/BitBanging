@@ -44,7 +44,7 @@ float relayNO () {
 
 float relayNC () {
   float voltage_V = 0;
-  voltage_V = (analogRead(A1)/1023) *5;
+  voltage_V = ((((analogRead(A1))) *5) /1023) *(1240/560);
   return voltage_V;
 }
 
