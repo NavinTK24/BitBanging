@@ -44,8 +44,9 @@ float relayNO () {
 
 float relayNC () {
   float voltage_V = 0;
-  voltage_V = ((((analogRead(A1))) *5) /1023) *(1240/560);
+  voltage_V = ((analogRead(A1) *5.0) /1023) *(1240.0/560.0); //as measuring across 560 ohm 
   return voltage_V;
+
 }
 
 void loop(void) {
