@@ -1,0 +1,364 @@
+--- Terminal on /dev/ttyACM0 | 9600 8-N-1
+--- Available filters and text transformations: colorize, debug, default, direct, hexlify, log2file, nocontrol, printable, send_on_enter, time
+--- More details at https://bit.ly/pio-monitor-filters
+--- Quit: Ctrl+C | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
+Resistance: Hello World
+BH1750 initialized
+Resistance: 0 ohms
+Irradiance: 6346.6665 lx       (Irradiance: 50.14 W/m2)
+Voltage:       0.0108V
+Current:       69.8000 mA
+Max Power Point yet: 0.0008 Watts
+
+
+Resistance: Resistance: 10 ohms
+Irradiance: 6391.6665 lx       (Irradiance: 50.49 W/m2)
+Voltage:       0.6818V
+Current:       70.0000 mA
+Max Power Point yet: 0.0470 Watts
+
+
+Resistance: Resistance: 20 ohms
+Irradiance: 6418.3330 lx       (Irradiance: 50.70 W/m2)
+Voltage:       1.3203V
+Current:       71.1000 mA
+Max Power Point yet: 0.0990 Watts
+
+
+Resistance: Resistance: 30 ohms
+Irradiance: 6428.3330 lx       (Irradiance: 50.78 W/m2)
+Voltage:       1.9481V
+Current:       71.4000 mA
+Max Power Point yet: 0.1454 Watts
+
+
+Resistance: Resistance: 40 ohms
+Irradiance: 6430.8330 lx       (Irradiance: 50.80 W/m2)
+Voltage:       2.6407V
+Current:       71.7000 mA
+Max Power Point yet: 0.1801 Watts
+
+
+Resistance: Resistance: 50 ohms
+Irradiance: 6434.1665 lx       (Irradiance: 50.83 W/m2)
+Voltage:       3.1277V
+Current:       69.4000 mA
+Max Power Point yet: 0.2319 Watts
+
+
+Resistance: Resistance: 60 ohms
+Irradiance: 6459.1665 lx       (Irradiance: 51.03 W/m2)
+Voltage:       3.8745V
+Current:       72.1000 mA
+Max Power Point yet: 0.2659 Watts
+
+
+Resistance: Resistance: 70 ohms
+Irradiance: 6452.4995 lx       (Irradiance: 50.97 W/m2)
+Voltage:       4.4697V
+Current:       70.9000 mA
+Max Power Point yet: 0.2999 Watts
+
+
+Resistance: Resistance: 80 ohms
+Irradiance: 6501.6665 lx       (Irradiance: 51.36 W/m2)
+Voltage:       5.0108V
+Current:       72.6000 mA
+Max Power Point yet: 0.3649 Watts
+
+
+Resistance: Resistance: 90 ohms
+Irradiance: 6504.9995 lx       (Irradiance: 51.39 W/m2)
+Voltage:       5.5844V
+Current:       72.4000 mA
+Max Power Point yet: 0.4074 Watts
+
+
+Resistance: Resistance: 100 ohms
+Irradiance: 6546.6665 lx       (Irradiance: 51.72 W/m2)
+Voltage:       6.3203V
+Current:       72.0000 mA
+Max Power Point yet: 0.4265 Watts
+
+
+Resistance: Resistance: 110 ohms
+Irradiance: 6572.4995 lx       (Irradiance: 51.92 W/m2)
+Voltage:       6.7641V
+Current:       71.2000 mA
+Max Power Point yet: 0.4925 Watts
+
+
+Resistance: Resistance: 120 ohms
+Irradiance: 6563.3330 lx       (Irradiance: 51.85 W/m2)
+Voltage:       7.0779V
+Current:       68.5000 mA
+Max Power Point yet: 0.5084 Watts
+
+
+Resistance: Resistance: 130 ohms
+Irradiance: 6587.4995 lx       (Irradiance: 52.04 W/m2)
+Voltage:       7.4134V
+Current:       66.9000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 140 ohms
+Irradiance: 6592.4995 lx       (Irradiance: 52.08 W/m2)
+Voltage:       7.8030V
+Current:       65.7000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 150 ohms
+Irradiance: 6592.4995 lx       (Irradiance: 52.08 W/m2)
+Voltage:       7.9654V
+Current:       63.1000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 160 ohms
+Irradiance: 6590.8330 lx       (Irradiance: 52.07 W/m2)
+Voltage:       8.0087V
+Current:       59.9000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 170 ohms
+Irradiance: 6597.4995 lx       (Irradiance: 52.12 W/m2)
+Voltage:       8.1926V
+Current:       58.2000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 180 ohms
+Irradiance: 6569.1665 lx       (Irradiance: 51.90 W/m2)
+Voltage:       8.2900V
+Current:       56.3000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 190 ohms
+Irradiance: 6579.9995 lx       (Irradiance: 51.98 W/m2)
+Voltage:       8.3550V
+Current:       53.8000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 200 ohms
+Irradiance: 6548.3330 lx       (Irradiance: 51.73 W/m2)
+Voltage:       8.3009V
+Current:       51.9000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 210 ohms
+Irradiance: 6549.1665 lx       (Irradiance: 51.74 W/m2)
+Voltage:       8.4416V
+Current:       50.4000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 220 ohms
+Irradiance: 6577.4995 lx       (Irradiance: 51.96 W/m2)
+Voltage:       8.4416V
+Current:       48.3000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 230 ohms
+Irradiance: 6550.8330 lx       (Irradiance: 51.75 W/m2)
+Voltage:       8.4632V
+Current:       46.7000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 240 ohms
+Irradiance: 6558.3330 lx       (Irradiance: 51.81 W/m2)
+Voltage:       8.5714V
+Current:       45.6000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 250 ohms
+Irradiance: 6558.3330 lx       (Irradiance: 51.81 W/m2)
+Voltage:       8.5931V
+Current:       44.4000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 260 ohms
+Irradiance: 6593.3330 lx       (Irradiance: 52.09 W/m2)
+Voltage:       8.6039V
+Current:       42.9000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 270 ohms
+Irradiance: 6582.4995 lx       (Irradiance: 52.00 W/m2)
+Voltage:       8.6147V
+Current:       41.5000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 280 ohms
+Irradiance: 6589.1665 lx       (Irradiance: 52.05 W/m2)
+Voltage:       8.6255V
+Current:       40.4000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 290 ohms
+Irradiance: 6587.4995 lx       (Irradiance: 52.04 W/m2)
+Voltage:       8.6472V
+Current:       39.3000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 300 ohms
+Irradiance: 6579.9995 lx       (Irradiance: 51.98 W/m2)
+Voltage:       8.7121V
+Current:       38.6000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 310 ohms
+Irradiance: 6586.6665 lx       (Irradiance: 52.03 W/m2)
+Voltage:       8.7121V
+Current:       37.4000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 320 ohms
+Irradiance: 6594.9995 lx       (Irradiance: 52.10 W/m2)
+Voltage:       8.7121V
+Current:       36.5000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 330 ohms
+Irradiance: 6593.3330 lx       (Irradiance: 52.09 W/m2)
+Voltage:       8.7229V
+Current:       35.8000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 340 ohms
+Irradiance: 6597.4995 lx       (Irradiance: 52.12 W/m2)
+Voltage:       8.7554V
+Current:       35.4000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 350 ohms
+Irradiance: 6589.1665 lx       (Irradiance: 52.05 W/m2)
+Voltage:       8.7446V
+Current:       34.5000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 360 ohms
+Irradiance: 6584.1665 lx       (Irradiance: 52.01 W/m2)
+Voltage:       8.7446V
+Current:       33.5000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 370 ohms
+Irradiance: 6606.6665 lx       (Irradiance: 52.19 W/m2)
+Voltage:       8.7987V
+Current:       33.1000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 380 ohms
+Irradiance: 6646.6665 lx       (Irradiance: 52.51 W/m2)
+Voltage:       8.7662V
+Current:       32.5000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 390 ohms
+Irradiance: 6625.8330 lx       (Irradiance: 52.34 W/m2)
+Voltage:       8.7879V
+Current:       31.6000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 400 ohms
+Irradiance: 6620.8330 lx       (Irradiance: 52.30 W/m2)
+Voltage:       8.8095V
+Current:       31.2000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 410 ohms
+Irradiance: 6648.3330 lx       (Irradiance: 52.52 W/m2)
+Voltage:       8.8420V
+Current:       30.7000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 420 ohms
+Irradiance: 6652.4995 lx       (Irradiance: 52.55 W/m2)
+Voltage:       8.8203V
+Current:       30.1000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 430 ohms
+Irradiance: 6655.8330 lx       (Irradiance: 52.58 W/m2)
+Voltage:       8.8095V
+Current:       29.3000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 440 ohms
+Irradiance: 6652.4995 lx       (Irradiance: 52.55 W/m2)
+Voltage:       8.8420V
+Current:       29.1000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 450 ohms
+Irradiance: 6650.8330 lx       (Irradiance: 52.54 W/m2)
+Voltage:       8.8636V
+Current:       28.7000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 460 ohms
+Irradiance: 6644.9995 lx       (Irradiance: 52.50 W/m2)
+Voltage:       8.8528V
+Current:       28.2000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 470 ohms
+Irradiance: 6635.8330 lx       (Irradiance: 52.42 W/m2)
+Voltage:       8.8312V
+Current:       27.8000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 480 ohms
+Irradiance: 6643.3330 lx       (Irradiance: 52.48 W/m2)
+Voltage:       8.8745V
+Current:       27.3000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 490 ohms
+Irradiance: 6633.3330 lx       (Irradiance: 52.40 W/m2)
+Voltage:       8.8420V
+Current:       27.2000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: Resistance: 500 ohms
+Irradiance: 6637.4995 lx       (Irradiance: 52.44 W/m2)
+Voltage:       8.8636V
+Current:       26.7000 mA
+Max Power Point yet: 0.5167 Watts
+
+
+Resistance: 
