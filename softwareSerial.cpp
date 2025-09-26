@@ -3,7 +3,7 @@
 #include <string.h>
 
 const int TXpin = 11;
-const int RXpin = 9;
+const int RXpin = 10;
 const int baudRate = 9600;
 const float bitTime = 1000000/baudRate;
 

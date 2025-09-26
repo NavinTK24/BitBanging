@@ -13,6 +13,8 @@ void setup(void) {
   pinMode(A1, INPUT);
   Serial.begin(9600);
   Wire.begin();
+  Serial.print("Resistance: ");
+
 
   while (!Serial) {
       delay(1);
@@ -44,24 +46,49 @@ float relayNO () {
 
 float relayNC () {
   float voltage_V = 0;
-  voltage_V = ((analogRead(A1) *5.0) /1023) *(1240.0/560.0); //as measuring across 560 ohm 
+  float analogValue = analogRead(A1);
+  // float analogValue = ( (analogRead(A1)) *92.4) / 90;
+  voltage_V = ((analogValue *5.0) /1023) *(1240.0/560.0); //as measuring across 560 ohm 
   return voltage_V;
 
 }
 
-void loop(void) {
+float maxPower = 0;
+float maxPowerPoint(float (*current)(), float (*power)()) {
+  float currentPower = current() * power();
+  if(currentPower > maxPower) {
+    maxPower = currentPower;
+  }
+  return maxPower/1000;
+
+}
+
+void display(int resistance) {
+  delay(100);
   float lux = bh1750.readLightLevel();
   float irradiance = lux * 0.0079;
+  Serial.print("Resistance: "); Serial.print(resistance); Serial.println(" ohms");
   Serial.print("Irradiance: "); Serial.print(lux, 4); Serial.print(" lx       ");
   Serial.print("(Irradiance: "); Serial.print(irradiance); Serial.println(" W/m2)");
   delay(500);
 
   Serial.print("Voltage:       "); Serial.print(relayNC(), 4);          Serial.println("V");
-  digitalWrite(relayPin, HIGH);
+  // digitalWrite(relayPin, HIGH);
   delay(500);
   Serial.print("Current:       "); Serial.print(relayNO(), 4); Serial.println(" mA");
-  digitalWrite(relayPin, LOW);
+  // digitalWrite(relayPin, LOW);
+  Serial.print("Max Power Point yet: "); Serial.print(maxPowerPoint(relayNO, relayNC), 4); Serial.println(" Watts");
   Serial.println("");
 
-  delay(1000);
+  delay(100);
+}
+
+void loop(void) {
+  int resistance = 0;
+  if(Serial.available() > 0) {
+    resistance = Serial.parseInt();
+    display(resistance);
+    Serial.println("");
+    Serial.print("Resistance: ");
+  }
 }
