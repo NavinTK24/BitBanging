@@ -12,28 +12,43 @@ const byte address2[6] = "10002";
 void setup() {
   Serial.begin(9600);
   radio.begin();
-  radio.setPALevel(RF24_PA_LOW);
+  radio.setPALevel(RF24_PA_HIGH);
   radio.openWritingPipe(address1); //TX
   radio.openReadingPipe(0,address2); //RX
   radio.startListening();
+  Serial.print("Me: ");
 
 }
 
+String msg = "";
+
 void loop() {
+  if(Serial.available()>0) {
+    char c = Serial.read();
+    Serial.print(c);
+    msg += c;
+
+    if(c == '\n') {
+      Serial.print("Me: ");
+      radio.stopListening();
+      radio.write(msg.c_str(),msg.length()+1);
+      radio.startListening();
+      msg = "";
+    }
+
+  }
+
+  char lastMessage[32] = "";
+
   if(radio.available()) {
     char text[32] = "";
     radio.read(&text, sizeof(text));
-    Serial.print("Received: ");
-    Serial.println(text);
+
+    if(strcmp(text, lastMessage) != 0) {
+      Serial.print("They: ");
+      Serial.println(text);
+    }
   }
 
-  if(Serial.available()) {
-    String msg = Serial.readStringUntil('\n');
-    radio.stopListening();
-    radio.write(msg.c_str(),msg.length()+1);
-    radio.startListening();
 
-    Serial.print("Sent: ");
-    Serial.println(msg);
-  }
 }
