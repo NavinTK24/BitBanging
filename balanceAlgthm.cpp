@@ -8,7 +8,7 @@ int main() {
     cout<<"Hello World"<<endl;
     map<int, vector<int>> phaseLoads;
 
-    phaseLoads[1] = {0,4,3,4,2,1,2};
+    phaseLoads[1] = {0,4,3,4,2,1,0};
     phaseLoads[2] = {3,2,2,1,3,4,2};
     phaseLoads[3] = {0,0,2,2,1,3,1};
 
@@ -60,7 +60,8 @@ int main() {
     for(int i=0; i<3; i++) { 
         if(phaseNeeds[i]<0) {
             negatives.push_back(i);
-        } else{
+        } 
+        if(phaseNeeds[i]>0) {
             positives.push_back(i);
         }
     }
@@ -123,14 +124,10 @@ int main() {
                    
                 }
 
-
             }
-
            
         }
     }
-
-
 
     return 0;
 }
