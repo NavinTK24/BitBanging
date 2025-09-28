@@ -10,9 +10,9 @@ struct Move {
 
 int main() {
     // Example loads
-    vector<int> R = {4,4,5,5,0,2,7,1};
-    vector<int> Y = {3,3,2,5,0,1,8,8};
-    vector<int> B = {5,5,0,0,3,0,1,0};
+    vector<int> R = {0,4,3,4,2,1,2};
+    vector<int> Y = {3,2,2,1,3,4,2};
+    vector<int> B = {0,0,2,2,1,3,1};
 
     map<string, vector<int>> phases = {{"R", R}, {"Y", Y}, {"B", B}};
     vector<Move> moves;
