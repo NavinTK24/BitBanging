@@ -1,32 +1,36 @@
 #include<iostream>
+#include<vector>
 using namespace std;
 int main() {
-    int array[5] = {1,2,3,4,5};
-    int target = 6;
+    vector<int> array;
+    array.push_back(5);
+    array.push_back(2);
+    array.push_back(2);
+    array.push_back(3);
+    int target = 4;
     int n = target;
-    bool state = false;
+    int state = true;
+    int m=0;
+    while(state) {
+        bool status = true;
+        for(int i=0; i<array.size(); i++) {
+            if(array[i]==n) {
+                cout<<array[i]<<endl;
+                array.erase(array.begin() + i);
+                status = false;
+                if(m<target) {
+                    m+=n;
+                    n = target-m;
+                }
 
-    while (!state) {
-        for(int i=0; i<5; i++) {
-            if(array[i] == n) {
-                cout<<array[i]<<endl;           
-                state = true;          
-                break;
             }
         }
-        if(state) {
-            int m=n;
-            n = target-n;
-            m += n;
-            state = false;
-            if(m<=0) {
-                state = true;
-                break;
-            }
-        } else {
-            n = n-1;
-        }  
-        
+        if(status) {
+            n=n-1;
+        }
+        if(n<=0) {
+            state=false;
+        }
     }
-    
+
 } 

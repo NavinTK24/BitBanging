@@ -8,7 +8,7 @@ int main() {
     cout<<"Hello World"<<endl;
     map<int, vector<int>> phaseLoads;
 
-    phaseLoads[1] = {0,4,3,4,2,1,7};
+    phaseLoads[1] = {0,4,3,4,2,1,12};
     phaseLoads[2] = {3,2,2,1,3,4,2};
     phaseLoads[3] = {0,0,2,2,1,3,1};
 
@@ -70,13 +70,16 @@ int main() {
         for(int n: negatives) {
             int target = phaseNeeds[p];
             int toGive = -phaseNeeds[n];
-            int state = false;
+            int search = toGive;
+            int state = true;
+            int m = 0;
 
-            while(!state) {
-                if(target>=(-phaseNeeds[n])) {
+            if(phaseNeeds[p]>=(-phaseNeeds[n])) {
+                while(state) {
+                    bool status = true;
                     for(int i=0; i<phaseLoads[1].size(); i++) {
-                        if(phaseLoads[n+1][i]== toGive) {
-                            cout<<"Shift "<<toGive<<"A load from ";
+                        if(phaseLoads[n+1][i]== search) {
+                            cout<<"Shift "<<phaseLoads[n+1][i]<<"A load from ";
                             if((n+1) == 1) cout<<"R Phase";
                             else if((n+1) == 2) cout<<"Y Phase";
                             else cout<<"B phase";
@@ -86,47 +89,65 @@ int main() {
                             else cout<<"B phase";
                             cout<<endl;
 
-                            state = true;
+                            status = false;
+                            phaseLoads[n+1].erase(phaseLoads[n+1].begin() + i);
+                            if(m<toGive) {
+                                m+=search;
+                                search = toGive-m;
+                            }
+                        
                             phaseNeeds[n] = phaseNeeds[n] + phaseLoads[n+1][i];
                             phaseNeeds[p] = phaseNeeds[p]-toGive;
-                            target = target-toGive;
-                            break;
                         }
                     }
-                    if(!state && (toGive>0)) {
-                        toGive = toGive-1;
+                    if(state) {
+                        search = search-1;
                     }
-                   
+                    if(search<=0) {
+                        state = false;
+                    }          
                 }
-
-                if(target<(-phaseNeeds[n])) {
-                    int toGive = target;
-                    for(int i=0; i<phaseLoads[1].size(); i++) {
-                        if(phaseLoads[n+1][i]== toGive) {
-                            cout<<"Shift "<<toGive<<"A load from ";
-                            if((n+1) == 1) cout<<"R Phase";
-                            else if((n+1) == 2) cout<<"Y Phase";
-                            else cout<<"B phase";
-                            cout<<" to ";
-                            if((p+1) == 1) cout<<"R Phase";
-                            else if((p+1) == 2) cout<<"Y Phase";
-                            else cout<<"B phase";
-                            cout<<endl;
-
-                            state = true;
-                            phaseNeeds[n] = phaseNeeds[n] + phaseLoads[n+1][i];
-                            phaseNeeds[p] = phaseNeeds[p]-toGive;
-                            target = target-toGive;
-                            break;
-                        }
-                    }
-                    if(!state && (toGive>0)) {
-                        toGive = toGive-1;
-                    }
-                   
-                }
-
             }
+
+            
+            if(target<(-phaseNeeds[n])) {
+                toGive = target;
+                search = toGive;
+                    while(state) {
+                    bool status = true;
+                    for(int i=0; i<phaseLoads[1].size(); i++) {
+                        if(phaseLoads[n+1][i]== search) {
+                            cout<<"Shift "<<toGive<<"A load from ";
+                            if((n+1) == 1) cout<<"R Phase";
+                            else if((n+1) == 2) cout<<"Y Phase";
+                            else cout<<"B phase";
+                            cout<<" to ";
+                            if((p+1) == 1) cout<<"R Phase";
+                            else if((p+1) == 2) cout<<"Y Phase";
+                            else cout<<"B phase";
+                            cout<<endl;
+    
+                            state = false;
+                            phaseLoads[n+1].erase(phaseLoads[n+1].begin() + i);
+                            if(m<toGive) {
+                                m+=search;
+                                search = toGive-m;
+                            }
+                            phaseNeeds[n] = phaseNeeds[n] + phaseLoads[n+1][i];
+                            phaseNeeds[p] = phaseNeeds[p]-toGive;
+                            
+                        }
+                    }
+                    if(search<=0){
+                        search = search-1;
+                    }
+                    if(search<=0) {
+                        state = false;
+                    } 
+                   
+                }
+            }
+                
            
         }
     }
