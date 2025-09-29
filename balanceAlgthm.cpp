@@ -8,9 +8,9 @@ int main() {
     cout<<"Hello World"<<endl;
     map<int, vector<int>> phaseLoads;
 
-    phaseLoads[1] = {0,4,3,4,2,1,12};
-    phaseLoads[2] = {3,2,2,1,3,4,2};
-    phaseLoads[3] = {0,0,2,2,1,3,1};
+    phaseLoads[1] = {5,6,7,8,9};
+    phaseLoads[2] = {17,16,13,11,5};
+    phaseLoads[3] = {3,6,9,12,15};
 
     for(int i=1; i<4; i++) {
         cout<<"Phase "<<i<<": [";
@@ -50,9 +50,9 @@ int main() {
         phaseNeeds[i] = balanced[i] - phaseTotals[i];
     }
 
-    cout<<"R phase Load: "<<setfill('0')<<setw(2)<<phaseTotals[0]<<"A :: R balanced state: "<<balanced[0]<<"A"<<" :: To Balance: "<<setfill('0')<<setw(2)<<phaseNeeds[0]<<"A"<<endl;
-    cout<<"Y phase Load: "<<setfill('0')<<setw(2)<<phaseTotals[1]<<"A :: Y balanced state: "<<balanced[1]<<"A"<<" :: To Balance: "<<setfill('0')<<setw(2)<<phaseNeeds[1]<<"A"<<endl;
-    cout<<"B phase Load: "<<setfill('0')<<setw(2)<<phaseTotals[2]<<"A :: B balanced state: "<<balanced[2]<<"A"<<" :: To Balance: "<<setfill('0')<<setw(2)<<phaseNeeds[2]<<"A"<<endl;
+    cout<<"R phase Load: "<<setfill('0')<<setw(2)<<phaseTotals[0]<<"A :: R balanced state: "<<balanced[0]<<"A"<<" :: To Balance it needs: "<<setfill('0')<<setw(2)<<phaseNeeds[0]<<"A"<<endl;
+    cout<<"Y phase Load: "<<setfill('0')<<setw(2)<<phaseTotals[1]<<"A :: Y balanced state: "<<balanced[1]<<"A"<<" :: To Balance it needs: "<<setfill('0')<<setw(2)<<phaseNeeds[1]<<"A"<<endl;
+    cout<<"B phase Load: "<<setfill('0')<<setw(2)<<phaseTotals[2]<<"A :: B balanced state: "<<balanced[2]<<"A"<<" :: To Balance it needs: "<<setfill('0')<<setw(2)<<phaseNeeds[2]<<"A"<<endl;
     cout<<endl;
 
     vector<int> negatives;
@@ -110,14 +110,14 @@ int main() {
             }
 
             
-            if(target<(-phaseNeeds[n])) {
+            if(phaseNeeds[p]<(-phaseNeeds[n])) {
                 toGive = target;
                 search = toGive;
-                    while(state) {
+                while(state) {
                     bool status = true;
                     for(int i=0; i<phaseLoads[1].size(); i++) {
                         if(phaseLoads[n+1][i]== search) {
-                            cout<<"Shift "<<toGive<<"A load from ";
+                            cout<<"Shift "<<phaseLoads[n+1][i]<<"A load from ";
                             if((n+1) == 1) cout<<"R Phase";
                             else if((n+1) == 2) cout<<"Y Phase";
                             else cout<<"B phase";
@@ -138,7 +138,7 @@ int main() {
                             
                         }
                     }
-                    if(search<=0){
+                    if(state){
                         search = search-1;
                     }
                     if(search<=0) {
