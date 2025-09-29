@@ -8,7 +8,7 @@ int main() {
     cout<<"Hello World"<<endl;
     map<int, vector<int>> phaseLoads;
 
-    phaseLoads[1] = {0,4,3,4,2,1,0};
+    phaseLoads[1] = {0,4,3,4,2,1,7};
     phaseLoads[2] = {3,2,2,1,3,4,2};
     phaseLoads[3] = {0,0,2,2,1,3,1};
 
@@ -69,11 +69,11 @@ int main() {
     for(int p: positives) {
         for(int n: negatives) {
             int target = phaseNeeds[p];
+            int toGive = -phaseNeeds[n];
             int state = false;
 
             while(!state) {
                 if(target>=(-phaseNeeds[n])) {
-                    int toGive = -phaseNeeds[n];
                     for(int i=0; i<phaseLoads[1].size(); i++) {
                         if(phaseLoads[n+1][i]== toGive) {
                             cout<<"Shift "<<toGive<<"A load from ";
@@ -89,6 +89,7 @@ int main() {
                             state = true;
                             phaseNeeds[n] = phaseNeeds[n] + phaseLoads[n+1][i];
                             phaseNeeds[p] = phaseNeeds[p]-toGive;
+                            target = target-toGive;
                             break;
                         }
                     }
@@ -115,6 +116,7 @@ int main() {
                             state = true;
                             phaseNeeds[n] = phaseNeeds[n] + phaseLoads[n+1][i];
                             phaseNeeds[p] = phaseNeeds[p]-toGive;
+                            target = target-toGive;
                             break;
                         }
                     }
