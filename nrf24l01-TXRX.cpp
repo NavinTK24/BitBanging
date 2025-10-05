@@ -13,8 +13,8 @@ void setup() {
   Serial.begin(9600);
   radio.begin();
   radio.setPALevel(RF24_PA_HIGH);
-  radio.openWritingPipe(address1); //TX
-  radio.openReadingPipe(0,address2); //RX
+  radio.openWritingPipe(address2); //TX
+  radio.openReadingPipe(0,address1); //RX
   radio.startListening();
   Serial.print("Me: ");
 
@@ -29,11 +29,16 @@ void loop() {
     msg += c;
 
     if(c == '\n') {
-      Serial.print("Me: ");
+      msg.trim();
+      Serial.print("Sent: ");
+      Serial.println(msg);
+
       radio.stopListening();
       radio.write(msg.c_str(),msg.length()+1);
       radio.startListening();
+
       msg = "";
+      Serial.print("Me: ");
     }
 
   }
@@ -45,8 +50,10 @@ void loop() {
     radio.read(&text, sizeof(text));
 
     if(strcmp(text, lastMessage) != 0) {
-      Serial.print("They: ");
+      Serial.print("\nThey: ");
       Serial.println(text);
+      strcpy(lastMessage, text);
+      Serial.print("Me: ");
     }
   }
 
