@@ -4,6 +4,9 @@ using namespace std;
 struct Node{
     int data;
     Node* next;
+    Node() : data(0), next(nullptr) {}
+    Node(int x) : data(x), next(nullptr) {}
+    Node(int x, Node* next) : data(x), next(next) {}
 };
 
 Node* createList(int n) {
@@ -33,76 +36,77 @@ Node* addlist(Node* l1, Node* l2) {
     Node* tail = nullptr;
     int sum = 0;
 
-    Node* newNode = new Node();
     if((l1->data+l2->data) <10) {
-        newNode->data = l1->data + l2->data;
-    } else {
-        newNode->data = (l1->data + l2->data)%10;
-        sum = (l1->data + l2->data)/10;
-    }
-    newNode->next = nullptr;
-    head = newNode;
-    tail = newNode;
-    l1 = l1->next;
-    l2 = l2->next;
-
-    while(l1 != nullptr && l2 != nullptr) {
-        Node* newNode = new Node;
-        if((l1->data+l2->data + sum) <10) {
-            newNode->data = l1->data + l2->data + sum;
-            sum = 0;
-
-        } else {
-            newNode->data = (sum + l1->data + l2->data)%10;
-            sum = (l1->data + l2->data + sum)/10;
-        }
-        newNode->next = nullptr;
-            
-        tail->next = newNode;
+        Node* newNode = new Node(l1->data + l2->data);
+        head = newNode;
         tail = newNode;
-        
         l1 = l1->next;
         l2 = l2->next;
+    } else {
+        Node* newNode = new Node((l1->data + l2->data)%10);
+        sum = (l1->data + l2->data)/10;
+        head = newNode;
+        tail = newNode;
+        l1 = l1->next;
+        l2 = l2->next;
+       
+    }
+
+    while(l1 != nullptr && l2 != nullptr) {
+        if((l1->data+l2->data + sum) <10) {
+            Node* newNode = new Node(l1->data + l2->data + sum);
+            sum = 0;
+            tail->next = newNode;
+            tail = newNode;
+            l1 = l1->next;
+            l2 = l2->next;
+        } else {
+            Node* newNode = new Node((sum + l1->data + l2->data)%10);
+            sum = (l1->data + l2->data + sum)/10;
+            tail->next = newNode;
+            tail = newNode;
+            l1 = l1->next;
+            l2 = l2->next;
+        }
+            
 
     }
 
-    while(l1 != nullptr && l2 == nullptr) {
-        Node* newNode = new Node;
+    while(l1 != nullptr && l2 == nullptr) {   
         if((sum + l1->data) <10) {
-            newNode->data = sum + l1->data;
+            Node* newNode = new Node(sum + l1->data);
             sum = 0;
-
+            tail->next = newNode;
+            tail = newNode;
+            l1 = l1->next; 
         } else {
-            newNode->data = (sum + l1->data)%10;
+            Node* newNode = new Node((sum + l1->data)%10);
             sum = (sum + l1->data)/10;
+            tail->next = newNode;
+            tail = newNode;
+            l1 = l1->next; 
         }
-        newNode->next = nullptr;    
-        tail->next = newNode;
-        tail = newNode;
-        l1 = l1->next; 
     }
 
     while(l1 == nullptr && l2 != nullptr) {
-        Node* newNode = new Node;
         if((sum + l2->data) <10) {
-            newNode->data = sum + l2->data;
+            Node* newNode = new Node(sum + l2->data);
             sum = 0;
-
+            tail->next = newNode;
+            tail = newNode;
+            l2 = l2->next; 
         } else {
-            newNode->data = (sum + l2->data)%10;
+            Node* newNode = new Node((sum + l2->data)%10);
             sum = (sum + l2->data)/10;
+            tail->next = newNode;
+            tail = newNode;
+            l2 = l2->next; 
         }
-        newNode->next = nullptr;    
-        tail->next = newNode;
-        tail = newNode;
-        l2 = l2->next; 
     }
 
 
     if(sum!=0) {
-        Node* newNode = new Node;
-        newNode->data = sum;
-        newNode->next = nullptr;
+        Node* newNode = new Node (sum);
         tail->next = newNode;
         tail = newNode;
     }
