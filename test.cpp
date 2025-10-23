@@ -1,147 +1,57 @@
 #include<iostream>
+#include<vector>
+#include<map>
+#include<variant>
+
 using namespace std;
+using intOrVector = variant<int, vector<int>>;
+int total[3] = {0,0,0};
 
-struct Node{
-    int data;
-    Node* next;
-    Node() : data(0), next(nullptr) {}
-    Node(int x) : data(x), next(nullptr) {}
-    Node(int x, Node* next) : data(x), next(next) {}
-};
-
-Node* createList(int n) {
-    Node* head = nullptr;
-    Node* tail = nullptr;
-
-    for(int i=0; i<n; i++) {
-        cout<<"["<<i+1<<"]: ";
-        Node* newNode2 = new Node();
-        cin>>newNode2->data;
-        newNode2->next = nullptr;
-
-        if(head == nullptr) {
-            head = newNode2;
-            tail = newNode2;
-        } else {
-            tail->next = newNode2;
-            tail = newNode2;
+void printLoads(const map<int, vector<intOrVector>> &n) {
+    for(auto &row : n) {
+        cout<<"Phase["<<row.first<<"] = ";
+        for(auto &element : row.second) {
+            if(holds_alternative<int>(element)) {
+                cout<<get<int>(element)<<",";
+                total[row.first-1] += get<int>(element);
+            } else {
+                cout<<"{ ";
+                for(int val : get<vector<int>>(element)) {
+                    cout<<val<<",";
+                }
+                cout<<"}";
+            }
         }
-
-    }
-    return head;
-}
-
-Node* addlist(Node* l1, Node* l2) {
-    Node* head = nullptr;
-    Node* tail = nullptr;
-    int sum = 0;
-
-    if((l1->data+l2->data) <10) {
-        Node* newNode = new Node(l1->data + l2->data);
-        head = newNode;
-        tail = newNode;
-        l1 = l1->next;
-        l2 = l2->next;
-    } else {
-        Node* newNode = new Node((l1->data + l2->data)%10);
-        sum = (l1->data + l2->data)/10;
-        head = newNode;
-        tail = newNode;
-        l1 = l1->next;
-        l2 = l2->next;
-       
-    }
-
-    while(l1 != nullptr && l2 != nullptr) {
-        if((l1->data+l2->data + sum) <10) {
-            Node* newNode = new Node(l1->data + l2->data + sum);
-            sum = 0;
-            tail->next = newNode;
-            tail = newNode;
-            l1 = l1->next;
-            l2 = l2->next;
-        } else {
-            Node* newNode = new Node((sum + l1->data + l2->data)%10);
-            sum = (l1->data + l2->data + sum)/10;
-            tail->next = newNode;
-            tail = newNode;
-            l1 = l1->next;
-            l2 = l2->next;
-        }
-            
-
-    }
-
-    while(l1 != nullptr && l2 == nullptr) {   
-        if((sum + l1->data) <10) {
-            Node* newNode = new Node(sum + l1->data);
-            sum = 0;
-            tail->next = newNode;
-            tail = newNode;
-            l1 = l1->next; 
-        } else {
-            Node* newNode = new Node((sum + l1->data)%10);
-            sum = (sum + l1->data)/10;
-            tail->next = newNode;
-            tail = newNode;
-            l1 = l1->next; 
-        }
-    }
-
-    while(l1 == nullptr && l2 != nullptr) {
-        if((sum + l2->data) <10) {
-            Node* newNode = new Node(sum + l2->data);
-            sum = 0;
-            tail->next = newNode;
-            tail = newNode;
-            l2 = l2->next; 
-        } else {
-            Node* newNode = new Node((sum + l2->data)%10);
-            sum = (sum + l2->data)/10;
-            tail->next = newNode;
-            tail = newNode;
-            l2 = l2->next; 
-        }
-    }
-
-
-    if(sum!=0) {
-        Node* newNode = new Node (sum);
-        tail->next = newNode;
-        tail = newNode;
-    }
-
-    return head;    
-}
-
-void printList(Node* list) {
-    Node* temp = list;
-    while(temp != nullptr) {
-        cout<<temp->data<<" ";
-        temp = temp->next;
+        cout<<endl;
     }
 }
 
 int main() {
-    int n1,n2;
-    cout<<"Number of Elements in l1: ";
-    cin>>n1;
-    Node* l1 = createList(n1);
+    cout<<"Hello World\n";
     
-    cout<<"Number of Elements in l2: ";
-    cin>>n2;
-    Node* l2 = createList(n2);
+    map<int, vector<intOrVector>> n;
+    n[1] = {4,3,2,4,0,7};
+    n[2] = {3,2,1,1,2,7};
+    n[3] = {6,3,2,1,0,5};
 
-    cout<<"l1: ";
-    printList(l1);
-    cout<< "  l2: ";
-    printList(l2);
-    cout<<endl;
+    for(int i=0; i<n[1].size(); i++) {
+        if (holds_alternative<int>(n[1][i]) && get<int>(n[1][i]) == 7) {
+            if (holds_alternative<int>(n[3][i]) && get<int>(n[3][i]) == 0) {
+                // Just replace directly
+                n[3][i] = get<int>(n[1][i]);
+            } else {
+                // Make it nested
+                vector<int> nestedVec;
+                nestedVec.push_back(get<int>(n[3][i]));
+                nestedVec.push_back(get<int>(n[1][i]));
+                n[3][i] = nestedVec;
+            }
+            // After moving, set n[1][i] to 0 (for clarity)
+            n[1][i] = 0;
+        }
+    }
 
-    Node* l3 = addlist(l1, l2);
+    printLoads(n);
+    cout<<total[0];
 
-    cout<<"Added list: ";
-    printList(l3);
-
-    return 0;
 }
