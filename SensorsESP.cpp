@@ -9,10 +9,10 @@
 #include "esp_gap_bt_api.h"
 
 // ===== WiFi + Telegram =====
-const char* ssid = "vivo T4x 5G";
-const char* password = "DHARANEESH2006";
-#define BOT_TOKEN "8088677440:AAHHKj5eTF0TnZMLNYwA-xKOOa927xIHyj0"
-#define CHAT_ID_USER "6395140537"
+const char* ssid = "****";
+const char* password = "***";
+#define BOT_TOKEN "****"
+#define CHAT_ID_USER "***"
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOT_TOKEN, client);
@@ -41,7 +41,7 @@ const float PULSE_LOW = 60.0;
 const int FLEX_THRESHOLD = 2000;
 
 // ===== Bluetooth (HC-05) =====
-const char* targetAddress = "00:25:05:31:13:3d";
+const char* targetAddress = "****";
 int currentRSSI = -999;
 String proximityStatus = "Unknown";
 
